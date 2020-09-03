@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h2><b>  Q&A 작성 (이용자)  </b></h2>
+    <hr>
+    <div>
+        <form style = "text-align: center" method="post" action="{% url 'qnacreate' %}">
+            {% csrf_token %}
+                <div>
+                    <label><h3><b>Title</b></h3></label>
+                    <input type="text" class="form-control" name="title" placeholder="제목을 적어주세요."><br>
+                </div>
+                <div>
+                    <label><h3><b>Nickname</b></h3></label>
+                    <input type="text" style="margin-top:5px" class="form-control" name="nickName"  placeholder="닉네임을 적어주세요."><br>
+                </div>
+                <div>
+                    <label><h3><b>Content</b></h3></label>
+                    <textarea style="margin-top:5px" class="form-control" name="content" cols="30" rows="5" placeholder="내용을 작성해 주세요."></textarea><br>
+                </div>
+                    <button type="submit" class="btn btn-primary" value="Submit">등록</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='{% url 'qnaread' %}'">목록</button>
+        </form>
+    </div>
+</body>
+</html>
+

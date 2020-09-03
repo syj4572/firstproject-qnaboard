@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q & A</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+</head>
+<body>
+    <div class="container">
+        <hr>
+        <a href="{% url 'qnaregister' %}">회원가입</a>
+        <a href="{% url 'qnalogin' %}">로그인</a>
+        <a href="{% url 'qnalogout' %}">로그아웃</a>
+
+      <h2>문의하기</h2>
+      <p>모두가 사용하는 공간입니다. 욕설과 폭언은 삼가해 주세요.</p>
+      <button type="button" class="btn btn-outline-secondary">자주하는 질문</button>
+      <button type="button" class="btn btn-outline-secondary">Q & A</button>
+      <button type="button" class="btn btn-outline-secondary">의견수렴</button>
+        <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>상태</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>등록일</th>
+
+          </tr>
+        </thead>
+        <tbody>
+        {%for qnaboard in qnalist %}
+          <tr>
+            <td>{{qnaboard.pk}}</td>
+            <td>
+                {% if qnaboard.admin_content == "" %}
+                대기
+                {% else %}
+                완료
+                {% endif %}
+            </td>
+            <td><a href="{% url 'qnadetail' qnaboard.pk %}">{{ qnaboard.title }}</a></td>
+            <td>{{qnaboard.qnawriter.username}}</td>
+            <td>{{qnaboard.created_at}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    <h6 class="text-center">
+        {% if qnalist.has_previous %}
+            <a href="?page={{qnalist.number|add:-1}}">이전페이지</a>
+        {% endif %}
+            Page {{qnalist.number}} / {{ qnalist.paginator.num_pages}}
+        {% if qnalist.has_next %}
+            <a href="?page={{qnalist.number|add:+1}}">다음페이지</a>
+        {% endif %}
+    </h6>
+      <div style = "text-align: right">
+          <a href="{% url 'qnacreate' %}">작성하기</a>
+      </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+</script>
+
+<!--#load()함수로 검색결과 엘리먼트에 검색 URL의 결과를 넣어줌
+function search_submit() {
+    var query = $("#id_query").val();
+        $("#search-results").load(
+            "/search/?ajax?ajax&query= " + encodeURIComponent(query)
+    );
+    return false;
+}
+
+#submit 이벤트
+$(document).ready(function()){
+    $("#search-form").submit(search_submit);
+}-->
+
